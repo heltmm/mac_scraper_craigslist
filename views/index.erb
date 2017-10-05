@@ -1,8 +1,13 @@
 
 <form action="/" method="post">
-  <button type="submit">Check current macbooks</button>
+
+
+  <p>Default Search is Portland</p>
+  <p>If you would like to change your search location go to craigslist and search macbook then copy and paste that link here:</p>
+  <input class='form-control' type="text" name="link"><br>
+  <button type="submit" class='btn btn-info'>Check current macbooks</button>
 </form>
-<p>this can take a little while as it searches over 100 web pages</p>
+<p><em>this can take a little while as it searches over 100 web pages</em></p>
 
 
 <% if @macs.any? %>
