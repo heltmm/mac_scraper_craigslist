@@ -37,7 +37,7 @@ post '/' do
     title = page.xpath("//span[@id='titletextonly']").text
     # remove extra characters and spaces that were selected along with information
     if price = page.xpath("//span[@class='price']").text
-      price = price.gsub("$", "")
+      price = price.gsub("$", "").to_i
     end
     description = page.xpath("//section[@id='postingbody']").text.gsub("\n        \n            QR Code Link to This Post\n            \n        \n", '')
     if location = page.xpath("//span[@class='postingtitletext']/small").text
@@ -52,6 +52,15 @@ post '/' do
       @macs.push({:link => link, :model => model, :manufacturer => manufacturer, :title => title, :price => price, :condition => condition, :description => description, :location => location})
     end
   end
-  binding.pry
   erb(:index)
 end
+
+# post '/price' do
+#   @macs = params['macs']
+#   @macs = @macs.sort_by {|mac| mac[:price]}
+#   erb(:index)
+# end
+#
+# get '/price' do
+#   redirect '/'
+# end
