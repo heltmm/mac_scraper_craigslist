@@ -1,0 +1,7 @@
+development:
+  adapter: postgresql
+  database: saved_macs
+
+test:
+  adapter: postgresql
+  database: saved_macs_test
