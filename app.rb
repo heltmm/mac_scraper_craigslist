@@ -1,6 +1,7 @@
 require("bundler/setup")
 require 'open-uri'
 require 'pry'
+
 Bundler.require(:default)
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
@@ -32,6 +33,7 @@ post '/' do
 
     link = link.text
     condition = page.xpath("//p[@class='attrgroup']/span[1]/b").text
+    date_posted = page.xpath("//time").text.split(' ')[0]
     manufacturer = page.xpath("//p[@class='attrgroup']/span[2]/b").text
     model = page.xpath("//p[@class='attrgroup']/span[3]/b").text
     title = page.xpath("//span[@id='titletextonly']").text
@@ -46,21 +48,13 @@ post '/' do
       end
     end
 
+    mac = {:link => link, :model => model, :manufacturer => manufacturer, :title => title, :price => price, :condition => condition, :description => description, :location => location}
+
     if keywords.any? {|word| title.match(word) || description.match(word)}
-      @damaged_macs.push({:link => link, :model => model, :manufacturer => manufacturer, :title => title, :price => price, :condition => condition, :description => description, :location => location})
+      @damaged_macs.push(mac)
     else
-      @macs.push({:link => link, :model => model, :manufacturer => manufacturer, :title => title, :price => price, :condition => condition, :description => description, :location => location})
+      @macs.push(mac)
     end
   end
   erb(:index)
 end
-
-# post '/price' do
-#   @macs = params['macs']
-#   @macs = @macs.sort_by {|mac| mac[:price]}
-#   erb(:index)
-# end
-#
-# get '/price' do
-#   redirect '/'
-# end
