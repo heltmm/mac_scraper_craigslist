@@ -57,17 +57,14 @@ get '/update' do
   # default link and city
   search_link = 'https://portland.craigslist.org/search/sss?query=macbook&sort=rel&postedToday=0'
   city = "Portland"
-  # if user inputs link chang default link
-  # if params['link'] != ''
-  #   search_link = params['link']
-  # end
+
 
   macs = Mac.scrape_craigslsit(search_link, city)
 
   macs.each do |mac|
     Mac.create(mac)
   end
-  redirect '/'
+  erb(:index)
 end
 
 get '/remove' do
