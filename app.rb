@@ -2,12 +2,12 @@ require("bundler/setup")
 require 'open-uri'
 require 'date'
 
+Bundler.require(:default)
+Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
+
 Dynopoker.configure do |config|
 	config.address = 'https://macbook-tracker.herokuapp.com/update'
 end
-
-Bundler.require(:default)
-Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
 get '/' do
   @type = "Normal"
