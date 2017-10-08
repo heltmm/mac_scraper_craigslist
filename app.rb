@@ -57,7 +57,7 @@ post ('/search') do
 end
 get '/update' do
   # default link and city
-  search_link = 'https://portland.craigslist.org/search/sss?query=macbook&sort=rel&postedToday=1'
+  search_link = 'https://portland.craigslist.org/search/sss?query=macbook&sort=rel&postedToday=0'
   city = "Portland"
   # if user inputs link chang default link
   # if params['link'] != ''
@@ -69,7 +69,7 @@ get '/update' do
   macs.each do |mac|
     Mac.create(mac)
   end
-  erb(:index)
+  redirect '/'
 end
 
 get '/remove' do

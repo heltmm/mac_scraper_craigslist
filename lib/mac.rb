@@ -32,7 +32,7 @@ class Mac < ActiveRecord::Base
       description = page.xpath("//section[@id='postingbody']").text.gsub("\n        \n            QR Code Link to This Post\n            \n        \n", '')
       if location = page.xpath("//span[@class='postingtitletext']/small").text
         if location != ''
-          location = location.chop![1..-1]
+          location = location.chop![2..-1]
         else
           location = "not provided"
         end
