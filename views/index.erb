@@ -30,8 +30,8 @@
 </form>
 
 <% if @search_macs.any? %>
-  <h2><%= @type %> Macbooks:</h2>
-  <table class="table table-striped table-info">
+  <h2><%= @type %> Macbooks: <%= @search_macs.length%> out of <%= @macs.length%></h2>
+  <table class="table table-striped table-inverse">
     <thead>
       <tr>
         <th>Title</th>
@@ -67,5 +67,4 @@
   </table>
 <%else%>
   <h2>Currently no Macbooks</h2>
-  <h2>Head over to <a href='/search'>search</a> to update the database</h2>
 <%end%>

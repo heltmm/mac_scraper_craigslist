@@ -5,7 +5,7 @@ class Mac < ActiveRecord::Base
     # select every macbook link
     mac_links = parse_file.xpath("//a[@class='result-title hdrlnk']/@href")
     # keywords to sort broken or damaged
-    keywords = ['broken', 'damaged', 'parts', 'cracked', 'crack', 'not working', 'damage', 'fix', 'repair']
+    keywords = ['broken', 'damaged', 'parts', 'cracked', 'not working', 'repair']
 
     macs = []
     # parse each macbook page
@@ -51,5 +51,17 @@ class Mac < ActiveRecord::Base
       end
     end
     macs
+  end
+
+  def self.remove_old
+    macs = Mac.all
+    # current date converted to julian
+    today = Date.today.julian.strftime("%j").to_i
+    macs.each do |mac|
+      check = mac.date_posted.julian.strftime("%j").to_i
+      if (today - check) > 30
+        mac.delete
+      end
+    end
   end
 end

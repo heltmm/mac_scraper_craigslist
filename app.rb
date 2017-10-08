@@ -10,12 +10,10 @@ Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 get '/' do
   @type = "Normal"
   @search_macs = Mac.where("normal = true")
+  @macs = Mac.all
   erb(:index)
 end
 
-get '/update' do
-  erb(:search)
-end
 
 post ('/search') do
 
@@ -55,21 +53,24 @@ post ('/search') do
   @macs = Mac.all
   erb(:index)
 end
-post '/' do
-  # default link
-  search_link = 'https://portland.craigslist.org/search/sss?query=+macbook+pro&sort=rel'
+get '/update' do
+  # default link and city
+  search_link = 'https://portland.craigslist.org/search/sss?query=macbook&sort=rel&postedToday=0'
   city = "Portland"
   # if user inputs link chang default link
-  if params['link'] != ''
-    search_link = params['link']
-  end
+  # if params['link'] != ''
+  #   search_link = params['link']
+  # end
 
   macs = Mac.scrape_craigslsit(search_link, city)
 
   macs.each do |mac|
     Mac.create(mac)
   end
-  @search_macs = Mac.where("normal = true")
-  @type = "Normal"
-  erb(:index)
+  redirect '/'
+end
+
+get '/remove' do
+  Mac.remove_old
+  redirect '/'
 end
