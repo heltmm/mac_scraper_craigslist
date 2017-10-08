@@ -1,5 +1,5 @@
 class Mac < ActiveRecord::Base
-  def self.scrape_craigslsit(url)
+  def self.scrape_craigslsit(url, city)
 
     parse_file = Nokogiri::HTML(open(url))
     # select every macbook link
@@ -38,11 +38,11 @@ class Mac < ActiveRecord::Base
         end
       end
 
-      mac = {:link => link, :model => model, :title => title, :price => price, :condition => condition, :description => description, :address => location, :date_posted => date_posted, :normal => false}
+      mac = {:link => link, :model => model, :title => title, :price => price, :condition => condition, :description => description, :address => location, :date_posted => date_posted, :city => city :normal => false}
 
       # block duplicates
       if Mac.exists?({:title => title, :price => price}) == false
-        if (keywords.any? {|word| title.match(word) || description.match(word)}) || price < 100
+        if (keywords.any? {|word| title.match(word) || description.match(word)}) || price < 100 || title.match("wanted")
           macs.push(mac)
         else
           mac[:normal] = true
