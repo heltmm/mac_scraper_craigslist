@@ -5,7 +5,7 @@ class Mac < ActiveRecord::Base
     # select every macbook link
     mac_links = parse_file.xpath("//a[@class='result-title hdrlnk']/@href")
     # keywords to sort broken or damaged
-    keywords = ['broken', 'damaged', 'parts', 'cracked', 'crack', 'not working', 'damage', 'fix']
+    keywords = ['broken', 'damaged', 'parts', 'cracked', 'crack', 'not working', 'damage', 'fix', 'repair']
 
     macs = []
     # parse each macbook page
@@ -38,11 +38,11 @@ class Mac < ActiveRecord::Base
         end
       end
 
-      mac = {:link => link, :model => model, :title => title, :price => price, :condition => condition, :description => description, :address => location, :date_posted => date_posted, :city => city :normal => false}
+      mac = {:link => link, :model => model, :title => title, :price => price, :condition => condition, :description => description, :address => location, :date_posted => date_posted, :city => city, :normal => false}
 
       # block duplicates
       if Mac.exists?({:title => title, :price => price}) == false
-        if (keywords.any? {|word| title.match(word) || description.match(word)}) || price < 100 || title.match("wanted")
+        if keywords.any? {|word| title.downcase.match?(word) || description.downcase.match?(word)} || price < 100 || title.downcase.match("wanted")
           macs.push(mac)
         else
           mac[:normal] = true
