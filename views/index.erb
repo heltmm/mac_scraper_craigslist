@@ -15,11 +15,11 @@
         <th>Title</th>
         <th>Price</th>
         <th>Link</th>
-        <th>Location</th>
+        <th>Description</th>
         <th>Condition</th>
         <th>Model</th>
         <th>Posted</th>
-        <th>Description</th>
+        <th>Location</th>
       </tr>
     </thead>
     <tbody>
@@ -28,11 +28,17 @@
           <td><%= mac[:title] %></td>
           <td>$<%= mac[:price] %></td>
           <td><a href="<%= mac[:link] %>">Link</td>
-          <td><%= mac[:location] %></td>
+          <td>
+            <% if mac[:description].length > 100 %>
+              <%= mac[:description][0..99] + "..." %>
+            <% else %>
+              <%= mac[:description] %>
+            <% end %>
+          </td>
           <td><%= mac[:condition] %></td>
           <td><%= mac[:model] %></td>
           <td><%= mac[:date_posted]%></td>
-          <td><%= mac[:description] %></td>
+          <td><%= mac[:address] %></td>
         </tr>
       <% end %>
     </tbody>
