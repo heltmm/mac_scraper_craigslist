@@ -44,7 +44,6 @@ class Mac < ActiveRecord::Base
       if Mac.exists?({:title => title, :price => price}) == false
         if keywords.any? {|word| title.downcase.match?(word) || description.downcase.match?(word)} || price < 100 || title.downcase.match("wanted")
           macs.push(mac)
-        elsif
         else
           mac[:normal] = true
           macs.push(mac)
