@@ -1,7 +1,7 @@
 require("bundler/setup")
 require 'open-uri'
 require 'date'
-require 'pry'
+
 
 
 Bundler.require(:default)
