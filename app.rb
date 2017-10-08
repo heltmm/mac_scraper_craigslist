@@ -2,7 +2,9 @@ require("bundler/setup")
 require 'open-uri'
 require 'date'
 
-
+Dynopoker.configure do |config|
+	config.address = 'https://macbook-tracker.herokuapp.com/update'
+end
 
 Bundler.require(:default)
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
@@ -55,9 +57,12 @@ post ('/search') do
 end
 get '/update' do
   # default link and city
-  search_link = 'https://portland.craigslist.org/search/sss?query=macbook&sort=rel&postedToday=0'
+  search_link = 'https://portland.craigslist.org/search/sss?query=macbook&sort=rel&postedToday=1'
   city = "Portland"
-
+  # if user inputs link chang default link
+  # if params['link'] != ''
+  #   search_link = params['link']
+  # end
 
   macs = Mac.scrape_craigslsit(search_link, city)
 
