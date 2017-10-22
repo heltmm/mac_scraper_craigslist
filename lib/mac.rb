@@ -54,10 +54,10 @@ class Mac < ActiveRecord::Base
   end
 
   def self.remove_old
-    macs = Mac.all
+    current_macs = Mac.all
     # current date converted to julian
     today = Date.today.julian.strftime("%j").to_i
-    macs.each do |mac|
+    current_macs.each do |mac|
       check = mac.date_posted.julian.strftime("%j").to_i
       if (today - check) > 30
         mac.delete
