@@ -56,8 +56,6 @@ post ('/search') do
   erb(:index)
 end
 get '/update' do
-  #remove old macbooks
-  Mac.remove_old
   # default link and city
   search_link = 'https://portland.craigslist.org/search/sss?excats=5-15-22-2-24-1-4-19-1-1-1-2-1-3-6-10-1-1-1-2-2-8-1-1-1-1-1-4-1-3-1-3-1-1-1-1-7-1-1-1-1-1-3-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-3-1-1-1-1-1&query=macbook&sort=rel'
   city = "Portland"
@@ -74,3 +72,7 @@ get '/update' do
   redirect '/'
 end
 
+get '/remove' do
+	Mac.remove_old
+	redirect '/'
+end
