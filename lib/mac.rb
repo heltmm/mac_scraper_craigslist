@@ -7,7 +7,6 @@ class Mac < ActiveRecord::Base
     # keywords to sort broken or damaged
     keywords = ['broken', 'damaged', 'parts', 'cracked', 'not working', 'repair']
 
-    macs = []
     # parse each macbook page
     mac_links.each do |link|
       page = Nokogiri::HTML(open(link).read)
@@ -43,14 +42,13 @@ class Mac < ActiveRecord::Base
       # block duplicates
       if Mac.exists?({:title => title, :price => price}) == false
         if keywords.any? {|word| title.downcase.match?(word) || description.downcase.match?(word)} || price < 100 || title.downcase.match("wanted")
-          macs.push(mac)
+          Mac.create(mac)
         else
           mac[:normal] = true
-          macs.push(mac)
+          Mac.create(mac)
         end
       end
     end
-    macs
   end
 
   def self.remove_old

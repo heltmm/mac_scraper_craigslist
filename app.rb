@@ -64,11 +64,8 @@ get '/update' do
   #   search_link = params['link']
   # end
 
-  macs = Mac.scrape_craigslsit(search_link, city)
+  Mac.scrape_craigslsit(search_link, city)
 
-  macs.each do |mac|
-    Mac.create(mac)
-  end
   redirect '/'
 end
 
