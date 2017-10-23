@@ -1,5 +1,3 @@
-require 'date'
-
 class Mac < ActiveRecord::Base
   def self.scrape_craigslsit(url, city)
 
@@ -58,6 +56,9 @@ class Mac < ActiveRecord::Base
     # current date converted to julian
     today = Date.today.julian.strftime("%j").to_i
     current_macs.each do |mac|
+      if mac.date_posted === nil
+        mac.delete
+      end
       if check = mac.date_posted.julian.strftime("%j").to_i
         if (today - check) > 1
           mac.delete
