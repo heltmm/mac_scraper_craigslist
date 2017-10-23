@@ -56,7 +56,7 @@ class Mac < ActiveRecord::Base
     # current date converted to julian
     today = Date.today.julian.strftime("%j").to_i
     current_macs.each do |mac|
-      if mac.date_posted === nil
+      if !mac.date_posted 
         mac.delete
       end
       if check = mac.date_posted.julian.strftime("%j").to_i
