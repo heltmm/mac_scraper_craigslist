@@ -7,6 +7,7 @@ Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
 Dynopoker.configure do |config|
 	config.address = 'https://macbook-tracker.herokuapp.com/update'
+	config.poke_frequency = 3600 # default is 1800s (30min)
 end
 
 get '/' do
