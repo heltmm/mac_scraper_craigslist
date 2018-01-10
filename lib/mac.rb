@@ -1,3 +1,4 @@
+
 class Mac < ActiveRecord::Base
   def self.scrape_craigslsit(url, city)
 
@@ -52,17 +53,16 @@ class Mac < ActiveRecord::Base
   end
 
   def self.remove_old
+    one_month_ago = DateTime.now.prev_month(1)
     current_macs = Mac.all
-    # current date converted to julian
-    today = Date.today.julian.strftime("%j").to_i
+
     current_macs.each do |mac|
       if !mac.date_posted
         mac.delete
       end
-      if check = mac.date_posted.julian.strftime("%j").to_i
-        if (today - check) > 30
-          mac.delete
-        end
+
+      if ((one_month_ago-mac.date_posted).to_i > 30)
+        mac.delete
       end
     end
   end

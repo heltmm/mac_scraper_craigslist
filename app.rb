@@ -2,6 +2,8 @@ require("bundler/setup")
 require 'open-uri'
 require 'date'
 
+
+
 Bundler.require(:default)
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
@@ -67,7 +69,7 @@ get '/update' do
 
   Mac.scrape_craigslsit(search_link, city)
 
-  redirect '/'
+  redirect '/remove'
 end
 
 get '/remove' do
