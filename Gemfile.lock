@@ -36,6 +36,7 @@ GEM
     minitest (5.10.3)
     multi_json (1.12.2)
     mustermann (1.0.1)
+    newrelic_rpm (4.8.0.341)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
     pg (0.21.0)
@@ -92,6 +93,7 @@ PLATFORMS
 DEPENDENCIES
   capybara
   dynopoker
+  newrelic_rpm
   nokogiri
   pg
   pry

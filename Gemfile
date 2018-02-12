@@ -7,6 +7,7 @@ gem("sinatra-activerecord")
 gem("rake")
 gem("nokogiri")
 gem('dynopoker')
+gem 'newrelic_rpm'
 
 
 
